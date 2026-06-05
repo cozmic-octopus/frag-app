@@ -25,7 +25,6 @@ function showOrHideErrorMessage(input, text) {
     errMess.textContent = text;
 }
 
-// RESET
 resetBtn.addEventListener('click', () => {
     document.querySelectorAll('.err_mess').forEach(err => {
         err.textContent = '';
@@ -33,8 +32,7 @@ resetBtn.addEventListener('click', () => {
     successMessage.textContent = '';
 });
 
-// VALIDACJE
-
+// walidacja
 function checkInputLength(input, minLength) {
     const fieldName = input.previousElementSibling?.textContent
         .toLowerCase()
@@ -70,13 +68,13 @@ function checkEmail() {
     }
 }
 
-// SPRAWDZENIE CAŁEGO FORMULARZA
+// sprawdzenie formularza
 function isFormValid() {
     const errors = document.querySelectorAll('.err_mess');
     return [...errors].every(err => err.textContent.trim() === "");
 }
 
-// SUBMIT FORMULARZA
+// submit formularza
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -91,11 +89,6 @@ submitBtn.addEventListener('click', (e) => {
         successMessage.textContent = "";
     }
 });
-
-
-// =====================
-// WYSZUKIWARKA KRAJÓW
-// =====================
 
 countryForm.addEventListener("submit", (e) => {
     e.preventDefault();
