@@ -1,63 +1,82 @@
-const countryform = document.getElementById("countryForm");
+const countryForm = document.getElementById("countryForm");
 const result = document.getElementById("result");
 const error = document.getElementById("error");
-
-const userName = document.querySelector('input#name');
-const email = document.querySelector('input#email');
-const pass1 = document.querySelector('input#password1');
-const pass2 = document.querySelector('input#password2');
-const resetBtn = document.querySelector('input#reset');
-const submitBtn = document.querySelector('input#submit');
 const successMessage = document.getElementById("successMessage");
+
+const userName = document.querySelector('#name');
+const email = document.querySelector('#email');
+const pass1 = document.querySelector('#password1');
+const pass2 = document.querySelector('#password2');
+const resetBtn = document.querySelector('#reset');
+const submitBtn = document.querySelector('#submit');
 
 const regionTranslations = {
     Europe: "Europa",
     Asia: "Azja",
     Africa: "Afryka",
     Americas: "Ameryka",
+    Oceania: "Oceania",
     Antarctic: "Antarktyda"
 };
 
-function showOrHideErrorMessage(input, text){
+function showOrHideErrorMessage(input, text) {
     const box = input.parentElement;
-    const errMess = box.querySelector('p.err_mess');
+    const errMess = box.querySelector('.err_mess');
     errMess.textContent = text;
 }
 
-function checkInputLength(input, minLength){
-    //funckja sprawdza czy pole input ma wskazana ilość znaków.
-    if(input.value.length < minLength){
-        showOrHideErrorMessage(input, `Pole ${input.previousElementSibling
-            ?.textContent
-            .toLowerCase()
-            .replace('*', "")
-            .replace(':', "")} powinno zawierać minimum ${minLength} znaki.`
-        ); 
-    } else{
+// RESET
+resetBtn.addEventListener('click', () => {
+    document.querySelectorAll('.err_mess').forEach(err => {
+        err.textContent = '';
+    });
+    successMessage.textContent = '';
+});
+
+// VALIDACJE
+
+function checkInputLength(input, minLength) {
+    const fieldName = input.previousElementSibling?.textContent
+        .toLowerCase()
+        .replace('*', "")
+        .replace(':', "");
+
+    if (input.value.trim().length < minLength) {
+        showOrHideErrorMessage(
+            input,
+            `Pole ${fieldName} powinno zawierać minimum ${minLength} znaków.`
+        );
+    } else {
         showOrHideErrorMessage(input, "");
     }
 }
 
 function checkPasswords() {
-    //napisać funckję sprawdzająca znaki w polach hasło
-    if(pass1.value != pass2.value){
-        showOrHideErrorMessage(pass2, 'Hasła są różne');
-    } else{
+    if (pass1.value !== pass2.value) {
+        showOrHideErrorMessage(pass2, "Hasła są różne");
+    } else {
         showOrHideErrorMessage(pass2, "");
-        showOrHideErrorMessage(pass1, "");
     }
 }
 
-function checkEmail(){
+function checkEmail() {
     const re =
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if(!(re.test(email.value))){
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\\.,;:\s@\"]+\.)+[^<>()[\]\\.,;:\s@\"]{2,})$/i;
+
+    if (!re.test(email.value)) {
         showOrHideErrorMessage(email, "Adres email jest niepoprawny");
-    }else{
+    } else {
         showOrHideErrorMessage(email, "");
     }
 }
 
+// SPRAWDZENIE CAŁEGO FORMULARZA
+function isFormValid() {
+    const errors = document.querySelectorAll('.err_mess');
+    return [...errors].every(err => err.textContent.trim() === "");
+}
+
+// SUBMIT FORMULARZA
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -66,28 +85,19 @@ submitBtn.addEventListener('click', (e) => {
     checkPasswords();
     checkEmail();
 
-    const errors = document.querySelectorAll('.err_mess');
-
-    const hasErrors = [...errors].some(
-        err => err.textContent.trim() !== ""
-    );
-
-    if (!hasErrors) {
-        successMessage.textContent = "Formularz został wysłany poprawnie.";
+    if (isFormValid()) {
+        successMessage.textContent = "Formularz został wysłany poprawnie ✔";
     } else {
         successMessage.textContent = "";
     }
 });
-resetBtn.addEventListener('click', () => {
-    document.querySelectorAll('.err_mess').forEach(err => {
-        err.textContent = '';
-    });
-
-    successMessage.textContent = '';
-});
 
 
-countryform.addEventListener("submit", (e) => {
+// =====================
+// WYSZUKIWARKA KRAJÓW
+// =====================
+
+countryForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const input = document
@@ -121,7 +131,7 @@ function fetchCountry(input) {
                 const plName = c.translations?.pol?.common?.toLowerCase();
                 const enName = c.name.common.toLowerCase();
 
-              return plName?.includes(input) || enName?.includes(input);
+                return plName?.includes(input) || enName?.includes(input);
             });
 
             if (!country) {
@@ -142,6 +152,8 @@ function fetchCountry(input) {
         });
 }
 
+
+// PWA
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
 }
