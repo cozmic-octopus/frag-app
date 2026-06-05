@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta name="theme-color" content="#1f3c88">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyszukiwarka Flag</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <h1>Wyszukiwarka Flag Państw</h1>
+
+    <form id="countryForm">
+        <input
+            type="text"
+            id="country"
+            placeholder="Wpisz nazwę kraju"
+        >
+
+        <button type="submit">
+            Szukaj
+        </button>
+    </form>
+
+    <p id="error"></p>
+
+    <div id="result"></div>
+
+    <h2>Walidacja formularza</h2>
+          <form action="">
+            <div class="form_box">
+                <label for="">*Imię: </label>
+                <input type="text" id="name" placeholder="podaj imię" required>
+                <p class="err_mess"></p> <!--- tu beda komunikaty o niepoprawnej danej-->
+            </div>
+            <div class="form_box">
+                <label for="email">*Email: </label>
+                <input type="email" name="email" id="email"
+                placeholder="podaj email" required>
+                <p class="err_mess"></p> <!--- tu beda komunikaty o niepoprawnej danej-->
+
+            </div>
+            <div class="form_box">
+                <label for="">*Hasło</label>
+                <input type="password" name="password1" id="password1"
+                placeholder="podaj hasło" required>
+                <p class="err_mess"></p> <!--- tu beda komunikaty o niepoprawnej danej-->
+
+            </div>
+            <div class="form_box">
+                <label for="">Powtórz hasło: </label>
+                <input type="password" name="password2" id="password2"
+                placeholder="powtórz hasło " required>
+                <p class="err_mess"></p> <!--- tu beda komunikaty o niepoprawnej danej-->
+            </div>
+
+            
+
+            <div class="button">
+                <input type="reset" value="Wyczyść" id="reset">
+                <input type="submit" value="Wyślij" id="submit">
+            </div>
+        </form>
+
+        <p id="successMessage"></p>
+
+        <footer>
+            <p>Projekt WSB Merito Gdynia 2026 Emilia Grablewska</p>
+        </footer>
+    <script src="app.js"></script>
+</body>
+</html>

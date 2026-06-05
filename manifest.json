@@ -1,0 +1,15 @@
+{
+  "name": "Wyszukiwarka Flag Państw",
+  "short_name": "Flagi",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fa",
+  "theme_color": "#1f3c88",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
