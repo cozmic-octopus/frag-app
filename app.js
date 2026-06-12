@@ -10,12 +10,13 @@ const pass2 = document.querySelector('#password2');
 const resetBtn = document.querySelector('#reset');
 const submitBtn = document.querySelector('#submit');
 
+//https://cozmic-octopus.github.io/frag-app/ 
+
 const regionTranslations = {
     Europe: "Europa",
     Asia: "Azja",
     Africa: "Afryka",
     Americas: "Ameryka",
-    Oceania: "Oceania",
     Antarctic: "Antarktyda"
 };
 
@@ -84,7 +85,7 @@ submitBtn.addEventListener('click', (e) => {
     checkEmail();
 
     if (isFormValid()) {
-        successMessage.textContent = "Formularz został wysłany poprawnie ✔";
+        successMessage.textContent = "Formularz został uzupełniony poprawnie ✔";
     } else {
         successMessage.textContent = "";
     }
@@ -119,7 +120,6 @@ function fetchCountry(input) {
             return res.json();
         })
         .then(data => {
-
             const country = data.find(c => {
                 const plName = c.translations?.pol?.common?.toLowerCase();
                 const enName = c.name.common.toLowerCase();
